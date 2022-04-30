@@ -10,6 +10,9 @@ export const Facture = () => {
   const navigate = useNavigate();
   const Options = [
     {
+      name: "Amendis"
+    },
+    {
       name: "Radees",
     },
     {
@@ -29,7 +32,7 @@ export const Facture = () => {
         height={100}
       />
       <h1 className="text-center text-4xl font-extrabold text-omniya ">
-         Facture Eau et Electricité
+          Eau et Electricité
       </h1>
       <div className="flex w-full h-full flex-wrap justify-between items-center">
         {!enterNum &&
@@ -46,7 +49,7 @@ export const Facture = () => {
       {enterNum && (
         <div className="w-1/2 flex flex-col items-center">
           <p className="text-center text-4xl font-extrabold text-omniya ">
-            Entrer le code de contrat de votre facture
+            Entrer le numéro de contrat de  facture
           </p>
 
           <input

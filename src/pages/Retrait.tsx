@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoadingDiv } from "../components";
+import axios, { AxiosRequestConfig } from "axios";
 
 export const Retrait = () => {
   const [user, setUser] = useState(null);
@@ -30,45 +32,39 @@ export const Retrait = () => {
    
   ];
 
-  const [newBalance, { data, loading, error }] = useUpdateBalanceMutation();
 
-  const handleNewBalance = async (toTake: number) => {
-    console.log("New balance", loading);
-    const headers = new Headers();
-    headers.append("Authorization", "Bearer " + localStorage.getItem("token"));
+  const handleNewBalance = async (amount: number ) => {
     const user = JSON.parse(localStorage.getItem("user"));
-    await newBalance({
-      variables: {
-        updateBalanceId: user.id,
-        input: {
-          balance: +user.balance - toTake,
-        },
-      },
-    });
-  };
+     console.log(amount)
+    axios
+      .post(`http://localhost:1337/api/users/${user._id}/withdrawal`, { amount })
+      .then((res) => {
+        setSolde(res.data.balance);
+        localStorage.getItem("token");
+      });
+   
+  }
+  //   console.log("New balance");
+  //   const headers = new Headers();
+  //   headers.append("Authorization", "Bearer " + localStorage.getItem("token"));
+  //   const user = JSON.parse(localStorage.getItem("user"));
+    
+  // };
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setUser(user);
+    axios
+      .get(`http://localhost:1337/api/users/${user._id}/balance`)
+      .then((res) => {
+        setSolde(res.data.balance);
+        localStorage.getItem("token");
+      });
     
-    setSolde(user.balance);
+    
   }, []);
 
-  useEffect(() => {
-    if (data) {
-      const userString = JSON.stringify({ ...data.updateBalance });
-      localStorage.setItem("user", userString);
-      // dispatch({
-      //   type: UserSlice.actions.setUser,
-      //   payload: {...data.login},
-      // });
-      navigate("/thankyou");
-
-    }
-    if (error) {
-      console.log(error);
-    }
-  }, [data, error]);
+  
   
 
   return (

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { LoadingDiv, NineDigits } from "../components/index";
 import axios from "axios";
 
@@ -16,11 +16,10 @@ export const Landing = () => {
       pin: cardCode,
     }
     // console.log(user);
-     axios.post(`http://localhost:1337/api/sessions`, user
-      ).then((res) => {
-      
-    
-          localStorage.setItem("token", res.data.accessToken);
+    axios.post(`http://localhost:1337/api/sessions`, user)
+      .then((res) => {
+        localStorage.setItem("token", res.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
           navigate("/Menu");
         
       });

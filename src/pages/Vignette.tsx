@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NineDigits } from "../components";
@@ -24,17 +25,19 @@ export const Vignette = () => {
   return (
     <div className="flex flex-col w-screen gap-5 bg-gradient-to-b from-white via-white  p-5 h-screen  justify-center items-center">
       <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtt3N9gu6Suj0ctGL-YWAt38i03gjTYtMtlE5WPENpEb1OitR12XcmWkC6sv8JkzvBJg&usqp=CAU"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Cih-bank.png/800px-Cih-bank.png"
         alt=""
+        width={300}
+        height={100}
       />
       <h1 className="text-center text-4xl -mb-2 font-extrabold text-omniya ">
-        Menu vignette de voiture
+         vignette de voiture
       </h1>
 
       {enterNum && (
         <div className="w-1/2 flex flex-col items-center">
           <p className="text-center text-xl font-extrabold text-omniya ">
-            saisir le matricule de sa voiture
+            matricule du voiture
           </p>
 
           <input
@@ -49,7 +52,7 @@ export const Vignette = () => {
             className="w-full mb-6 h-10 mt-5 text-2xl font-bold border-2  border-omniya text-center rounded-lg focus:border-omniya"
           />
           <p className="text-center  text-xl font-extrabold text-omniya ">
-            saisir l'année de paiement
+            saisir l'année de la vignette
           </p>
 
           <input
@@ -63,7 +66,7 @@ export const Vignette = () => {
             className="w-full mb-6 h-10 mt-5 text-2xl font-bold border-2  border-omniya text-center rounded-lg focus:border-omniya"
           />
           <NineDigits
-            actionOk={() => navigate("/thankyou")}
+            actionOk={() => navigate("/Completed")}
             setCardNumber={matricule ? setMatriculeNum : setDate}
           />
         </div>

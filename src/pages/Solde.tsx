@@ -9,16 +9,16 @@ export const Solde = () => {
 
   useEffect(() => {
     //set solde from localstorage
-    axios.get(`http://localhost:1337/api/users/:userId/balance`).then((res) => {
-      localStorage.setItem("token", res.data.accessToken);
-      navigate("/Menu");
-    });
-  
-    const localSolde = localStorage.getItem("user");
-    if (localSolde) {
-      const user = JSON.parse(localSolde);
-      setSolde(user.balance);
-    }
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    axios
+      .get(`http://localhost:1337/api/users/${user._id}/balance`)
+      .then((res) => {
+        setSolde(res.data.balance);
+        localStorage.getItem("token");
+        
+      });
+   
   }, []);
 
   return (

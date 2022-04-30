@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NineDigits } from "../components";
-import { useUpdateBalanceMutation } from "../graphql/generated/graphql";
+import axios from "axios";
 
 export const Recharge = () => {
   const [enterNum, setEnterNum] = useState(false);
@@ -11,6 +11,7 @@ export const Recharge = () => {
   const [chooseOperator, setChooseOperator] = useState(true);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+ 
   const Options = [
     {
       name: "IAM",
@@ -50,42 +51,25 @@ export const Recharge = () => {
     },
   ];
 
-  const [newBalance, { data, loading, error }] = useUpdateBalanceMutation();
 
-  const handleNewBalance = async (toTake: number) => {
-    console.log("New balance", loading);
-    const headers = new Headers();
-    headers.append("Authorization", "Bearer " + localStorage.getItem("token"));
+  const handleNewBalance = async (amount: number) => {
     const user = JSON.parse(localStorage.getItem("user"));
-    await newBalance({
-      variables: {
-        updateBalanceId: user.id,
-        input: {
-          balance: +user.balance - toTake,
-        },
-      },
-    });
-  };
+    axios
+      .post(`http://localhost:1337/api/users/${user._id}/withdrawal`, { amount })
+      .then((res) => {
+        console.log(res);
+        localStorage.getItem("token");
+      });
+   
+  }
+    
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    setUser(user);
-  }, []);
 
-  useEffect(() => {
-    if (data) {
-      const userString = JSON.stringify({ ...data.updateBalance });
-      localStorage.setItem("user", userString);
-      // dispatch({
-      //   type: UserSlice.actions.setUser,
-      //   payload: {...data.login},
-      // });
-      navigate("/thankyou");
-    }
-    if (error) {
-      console.log(error);
-    }
-  }, [data, error]);
+  
+
+  
+  
+
 
   return (
     <div className="flex flex-col w-screen gap-5 bg-gradient-to-b from-white via-white  p-5 h-screen  justify-center items-center">
@@ -96,7 +80,7 @@ export const Recharge = () => {
         height={100}
       />
       <h1 className="text-center text-4xl font-extrabold text-omniya ">
-        Menu Recharge Mobile
+        Recharge Mobile
       </h1>
       <div className="flex w-full h-full flex-wrap justify-between items-center">
         {chooseOperator &&
@@ -106,6 +90,7 @@ export const Recharge = () => {
               onClick={() => {
                 setChooseOperator(false);
                 setChoosePrice(true);
+                
               }}
               className="w-5/12  p-5 rounded-xl shadow-md border-4 border-cih-dark border-solid text-omniya text-2xl font-extrabold bg-cih-gold"
             >
@@ -120,6 +105,7 @@ export const Recharge = () => {
                 setChoosePrice(false);
 
                 setEnterNum(true);
+                handleNewBalance(+_.name);
               }}
               className="w-5/12  p-5 rounded-xl shadow-md border-4 border-cih-dark border-solid text-omniya text-2xl font-extrabold bg-cih-gold"
             >
@@ -144,7 +130,7 @@ export const Recharge = () => {
             className="w-full mb-6 h-10 mt-5 text-2xl font-bold border-2  border-omniya text-center rounded-lg focus:border-omniya"
           />
           <NineDigits
-            actionOk={() => navigate("/thankyou")}
+            actionOk={() => navigate("/Menu")}
             setCardNumber={setPhoneNumber}
           />
         </div>
@@ -165,4 +151,5 @@ export const Recharge = () => {
       </div>
     </div>
   );
-};
+
+}
