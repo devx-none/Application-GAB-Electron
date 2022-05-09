@@ -1,6 +1,6 @@
 {
-  "name": "onmiya",
-  "productName": "onmiya",
+  "name": "cih_Bank",
+  "productName": "cih_Bank",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
@@ -14,8 +14,8 @@
   },
   "keywords": [],
   "author": {
-    "name": "Youssef Hajjari",
-    "email": "youssefhajjari01@gmail.com"
+    "name": "elmahdi",
+    "email": "elmahdi.rammach@gmail.com"
   },
   "license": "MIT",
   "config": {
@@ -28,7 +28,6 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "@electron-forge/plugin-webpack": "6.0.0-beta.63",
-    "@graphql-codegen/cli": "2.6.2",
     "@graphql-codegen/typescript": "2.4.8",
     "@graphql-codegen/typescript-operations": "2.3.5",
     "@graphql-codegen/typescript-react-apollo": "3.2.11",
@@ -55,7 +54,6 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.10",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@heroicons/react": "^1.0.6",
@@ -66,7 +64,6 @@
     "cors": "^2.8.5",
     "electron-squirrel-startup": "^1.0.0",
     "fireworks-js": "^1.3.5",
-    "graphql": "^16.3.0",
     "lodash.debounce": "^4.0.8",
     "lottie-react": "^2.2.1",
     "node-polyfill-webpack-plugin": "^1.1.4",
